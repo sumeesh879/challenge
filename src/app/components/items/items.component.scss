@@ -1,0 +1,53 @@
+.blocks {
+  padding: 5px;
+}
+
+.container, .search-bar {
+  width: 100%;
+}
+
+#add-button {
+  position: absolute;
+  right: 20px;
+  bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.success-button {
+  background-color: green;
+  color: white;
+}
+
+.close-button {
+  background-color: red;
+  color: white;
+}
+
+md-sidenav-container {
+  position: fixed !important;
+  height: 100%;
+  width: 100%;
+  background-color: inherit !important;
+  md-sidenav {
+    max-width: 400px;
+    display: flex;
+    overflow: visible;
+    background-color: darkgray;
+    border-left: solid 2px brown;
+    width: 100%;
+  }
+  .mat-sidenav-content {
+    display: flex;
+    overflow: visible;
+  }
+}
+
+.form-container {
+  padding: 20px;
+}
+
+md-card-content {
+  min-height: 50px;
+}

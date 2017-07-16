@@ -1,0 +1,99 @@
+<div>
+  <md-input-container class="search-bar">
+    <md-icon mdPrefix="">search</md-icon>
+    <input type="text" [(ngModel)]="search" (keyup)="searchItem()" (blur)="reset()" mdInput>
+  </md-input-container>
+  <md-sidenav-container>
+    <md-sidenav #sidenav mode="side" align="end" opened="false">
+      <div class="form-container">
+        <div [hidden]="!addToggle">
+          <h2>Create Form</h2>
+          <form #f="ngForm" (ngSubmit)="addItem(f)">
+            <div fxLayout="column">
+              <md-input-container>
+                <input
+                  mdInput
+                  placeholder="Item Name"
+                  autocomplete="off"
+                  name="name"
+                  required
+                  ngModel
+                />
+              </md-input-container>
+              <md-input-container>
+                <input
+                  mdInput
+                  placeholder="Item Content"
+                  autocomplete="off"
+                  name="content"
+                  ngModel
+                />
+              </md-input-container>
+              <br/>
+              <button class="success-button" type ="submit" md-raised-button disabled="{{!f.valid}}" (click)="sidenav.toggle() && checkToggle()">ADD ITEM</button>
+              <br/>
+              <button type="reset" class="close-button" md-raised-button (click)="sidenav.toggle() && checkToggle()">CLOSE</button>
+            </div>
+          </form>
+        </div>
+        <div [hidden]="!editToggle">
+          <h2>Edit Form</h2>
+          <form #e="ngForm" (ngSubmit)="editForm(e)">
+            <div fxLayout="column">
+              <md-input-container>
+                <input
+                  mdInput
+                  placeholder="Item Name"
+                  autocomplete="off"
+                  name="name"
+                  required
+                  [ngModel]="editItemObj.name"
+                />
+              </md-input-container>
+              <md-input-container>
+                <input
+                  mdInput
+                  placeholder="Item Content"
+                  autocomplete="off"
+                  name="content"
+                  [ngModel]="editItemObj.content"
+                />
+              </md-input-container>
+              <br/>
+              <button class="success-button" type ="submit" md-raised-button disabled="{{!e.valid}}" (click)="sidenav.toggle() && checkEditToggle()">EDIT ITEM</button>
+              <br/>
+              <button class="close-button" type="reset" md-raised-button (click)="sidenav.toggle() && checkEditToggle()">CLOSE</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </md-sidenav>
+    <div class="container">
+      <div fxLayout="row"
+           fxLayoutWrap
+           class="contentResp" flex>
+        <div
+          class="blocks"
+          fxFlex.gt-md="20%"
+          fxFlex.lt-sm="50%"
+          *ngFor="let item of items">
+          <md-card>
+            <md-card-header>
+              <md-card-title><strong>{{ item?.name | uppercase}}</strong></md-card-title>
+            </md-card-header>
+            <md-card-content>{{ item?.content }}</md-card-content>
+            <md-card-actions>
+              <button md-fab (click)="sidenav.toggle() && editItem(item)"><md-icon>edit</md-icon></button>
+              <button md-fab (click)="deleteItem(item)"><md-icon>delete_forever</md-icon></button>
+            </md-card-actions>
+          </md-card>
+        </div>
+      </div>
+    </div>
+  </md-sidenav-container>
+  <div *ngIf="!addToggle">
+    <button md-fab id="add-button" (click)="sidenav.toggle() && checkToggle() ">
+      <md-icon>add</md-icon>
+    </button>
+  </div>
+</div>
